@@ -1,5 +1,5 @@
 import pygame
-from tiles.foundation import Foundation
+from map.tiles.foundation import Foundation
 
 
 class Tile(Foundation):
@@ -27,6 +27,9 @@ class Tile(Foundation):
         def ubdate(self, hitbox_center):
             self._rect.center = hitbox_center
             self._rect_center = hitbox_center
+
+        @property
+        def sort_y_offset(self): return self._sort_y_offset
 
         @property
         def image(self): return self._final_image
