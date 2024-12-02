@@ -10,6 +10,7 @@ class Tile(Foundation):
             self.angle = 0
             self._raw_image = image
             self._final_image = image
+            print(pos)
             self._rect: pygame.FRect = image.get_frect(**pos)
             self._rect_center = self._rect.center
             self._sort_y_offset = sort_y_offset

@@ -7,6 +7,10 @@ class TileMap:
         self._tile_map: dict[tuple][list[Tile]] = {}
         self._offgrid_tiles = []
 
+    @property
+    def offgrid_tiles(self):
+        return self._offgrid_tiles
+
     def add(self, tile: Tile, offgrid_tile):
         if offgrid_tile:
             self._offgrid_tiles.append(tile)
