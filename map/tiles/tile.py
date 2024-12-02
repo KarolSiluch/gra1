@@ -7,13 +7,16 @@ class Tile(Foundation):
         def __init__(self, image: pygame.Surface, sort_y_offset: int = 0, **pos: tuple[int]) -> None:
             self.show = True
             self.flip = False
+            self.angle = 0
             self._raw_image = image
             self._final_image = image
             self._rect: pygame.FRect = image.get_frect(**pos)
             self._rect_center = self._rect.center
-            self._angle = 0
             self._sort_y_offset = sort_y_offset
             self.render_offset = pygame.Vector2()
+
+        def new_image(self, image):
+            self._raw_image = image
 
         def transform(self, angle=0, flip=(False, False), scale=1):
             transformed_image = pygame.transform.flip(self._raw_image, *flip)
@@ -24,7 +27,7 @@ class Tile(Foundation):
             self._final_image = transformed_image
             self._angle = angle
 
-        def ubdate(self, hitbox_center):
+        def update(self, hitbox_center):
             self._rect.center = hitbox_center
             self._rect_center = hitbox_center
 
@@ -60,6 +63,3 @@ class Tile(Foundation):
 
     def get_sprite(self):
         return (self._sprite.image, self._sprite.rect)
-
-    def update(self, dt):
-        self._sprite.ubdate(self._hitbox.center)

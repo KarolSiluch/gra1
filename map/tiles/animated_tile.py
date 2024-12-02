@@ -10,6 +10,10 @@ class AnimatedTile(Tile):
         self._current_animation: Animation = self._animations[first_state].copy()
         super().__init__(groups, type, self._current_animation.img(), render_y_offset, offgrid_tile, **pos)
 
+    @property
+    def current_animation(self):
+        return self._current_animation
+
     def animate(self):
         self.sprite.new_image(self._current_animation.img())
 
