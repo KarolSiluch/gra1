@@ -51,16 +51,6 @@ class BasicState:
     def move(self, dt, direction: pygame.Vector2):
         tilemap: TileMap = group_picker.get_group(GroupType.Collidable)
 
-        self._context.hitbox.x += direction.x * dt
-        for tile in tilemap.get_collisions(self._context):
-            if direction.x > 0:
-                self._context.hitbox.right = tile.hitbox.left
-                self._context.set_collision('right')
-            elif direction.x < 0:
-                self._context.hitbox.left = tile.hitbox.right
-                self._context.set_collision('left')
-            self._player_direction.x = 0
-
         self._context.hitbox.y += direction.y * dt
         for tile in tilemap.get_collisions(self._context):
             if direction.y > 0:
@@ -70,6 +60,16 @@ class BasicState:
                 self._context.hitbox.top = tile.hitbox.bottom
                 self._context.set_collision('top')
             self._player_direction.y = 0
+
+        self._context.hitbox.x += direction.x * dt
+        for tile in tilemap.get_collisions(self._context):
+            if direction.x > 0:
+                self._context.hitbox.right = tile.hitbox.left
+                self._context.set_collision('right')
+            elif direction.x < 0:
+                self._context.hitbox.left = tile.hitbox.right
+                self._context.set_collision('left')
+            self._player_direction.x = 0
 
     def _enter(self):
         self._player_direction = self._context.direction.copy()

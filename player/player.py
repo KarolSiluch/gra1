@@ -31,6 +31,10 @@ class Player(AnimatedTile):
         self._max_charge = 50
 
     @property
+    def charge_fraction(self):
+        return self._charge / self._max_charge
+
+    @property
     def charge(self):
         return self._charge
 

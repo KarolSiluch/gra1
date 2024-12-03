@@ -11,7 +11,7 @@ class StateMachine:
         self._states = {
             'idle': PlayerIdleState(context, {'run', 'jump', 'fall'}),
             'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
-            'fall': PlayerFallState(context, {'idle', 'run', 'jump'}),
+            'fall': PlayerFallState(context, {'idle', 'run', 'jump'}, gravity=1050),
             'jump': PlayerJumpState(context, {'fall'}, gravity=1050)
         }
         self._current_state: BasicState = self._states[self._state]

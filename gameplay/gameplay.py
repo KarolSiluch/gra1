@@ -6,6 +6,7 @@ import support.support
 from group_picker.group_picker import group_picker
 from group_picker.settings import GroupType
 from support.support import import_cut_graphics
+from gi.gi import GI
 
 
 class Gameplay:
@@ -14,6 +15,7 @@ class Gameplay:
         self._map_manager = MapManager(self, 16, 'map1')
         groups = group_picker.get_groups(GroupType.Visible)
         self.player = Player(groups, self._assets['player'], center=self._map_manager.player_start_position)
+        self.gi = GI(self.player)
 
     @property
     def assets(self):
@@ -25,6 +27,7 @@ class Gameplay:
 
     def render(self, display: pygame.Surface):
         self._map_manager.render(display)
+        self.gi.render(display)
 
     def import_assets(self):
         player_path = 'assets/player/'

@@ -6,7 +6,7 @@ class PlayerJumpState(BasicState):
     def _enter(self):
         super()._enter()
         self._context.change_animation('jump')
-        self._player_direction.y = -370
+        self._player_direction.y = -340
         self._context.jumps -= 1
 
     def _exsit(self):

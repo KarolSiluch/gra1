@@ -18,6 +18,7 @@ class PlayerFallState(BasicState):
         self.fall_jump_cooldown.reset()
 
     def update(self, dt, events):
+        self._gravity = 1050 if self._context.charge else 1500
         super().update(dt)
         self.fall_jump()
 
