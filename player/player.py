@@ -17,32 +17,35 @@ class Player(AnimatedTile):
     def __init__(self, groups, assets, **pos: tuple[int]) -> None:
         self._state_machine = StateMachine(self)
         image = assets['animations']
-        super().__init__(groups, 'player', image, self._state_machine.state, offgrid_tile=True, **pos)
-        self._direction = pygame.Vector2()
-        self._velocity = 200
+        super().__init__(groups, 'player', image, self._state_machine.state, offgrid_tile=True, z=6, **pos)
+        self.reset_collisions()
+        self.hitbox.inflate_ip(-40, 0)
+        self.direction = pygame.Vector2(0, 0)
+        self._speed = 200
+        self.jumps = 1
 
     @property
-    def velocity(self):
-        return self._velocity
+    def speed(self):
+        return self._speed
 
     @property
-    def direction(self):
-        return self._direction
+    def collisions(self):
+        return self._collisions
 
-    def change_x_by(self, x):
-        self.hitbox.x += x
+    def reset_collisions(self):
+        self._collisions = {'top': False, 'bottom': False, 'right': False, 'left': False}
 
-    def change_y_by(self, y):
-        self.hitbox.y += y
-
-    def get_direction(self, events):
-        self._direction.x = events['d'] - events['a']
-        self._direction.y = events['s'] - events['w']
+    def set_collision(self, *collisions):
+        for collision in collisions:
+            if collision not in self._collisions.keys():
+                raise ValueError
+            self._collisions[collision] = True
 
     def get_sprite(self):
-        return (self._sprite.image(self._direction.x), self._sprite.rect)
+        return (self._sprite.image(self._state_machine.direction()), self._sprite.rect)
 
     def update(self, dt, events):
         self.animate()
+        self.reset_collisions()
         self._state_machine.update(dt, events)
-        self.get_direction(events)
+        self._sprite.update(self.hitbox.center)

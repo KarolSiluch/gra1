@@ -47,7 +47,7 @@ class MapManager:
         layer = tile_data['z']
         pos: dict = tile_data['pos']
 
-        if type in {'wall'}:
+        if type in {'lab_tiles'}:
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Collidable)
             image = self._game.assets[type][variant]
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)

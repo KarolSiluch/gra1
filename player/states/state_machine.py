@@ -1,14 +1,18 @@
 from player.states.basic_state import BasicState
 from player.states.run import PlayerRunState
 from player.states.idle import PlayerIdleState
+from player.states.fall import PlayerFallState
+from player.states.jump import PlayerJumpState
 
 
 class StateMachine:
     def __init__(self, context) -> None:
         self._state = 'idle'
         self._states = {
-            'idle': PlayerIdleState(context, {'run'}),
-            'run': PlayerRunState(context, {'idle'}),
+            'idle': PlayerIdleState(context, {'run', 'jump'}),
+            'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
+            'fall': PlayerFallState(context, {'idle', 'run', 'jump'}),
+            'jump': PlayerJumpState(context, {'fall'}, gravity=1050)
         }
         self._current_state: BasicState = self._states[self._state]
 
@@ -28,8 +32,11 @@ class StateMachine:
         self._current_state._enter()
         self._state = state
 
+    def direction(self):
+        return self._current_state.player_direction.x
+
     def update(self, dt, events, *args):
-        self._current_state.update(dt, *args)
+        self._current_state.update(dt, events, *args)
         for state in self._states.values():
             state.cooldown.timer()
         self.change_state(self._current_state.next_state(events))

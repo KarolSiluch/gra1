@@ -87,7 +87,6 @@ class Editor:
             if not self._off_grid:
                 return
             pos = {'center': ingame_mpos}
-
         elif self._off_grid:
             pos = {'topleft': ingame_mpos}
         else:

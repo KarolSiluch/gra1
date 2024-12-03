@@ -1,20 +1,24 @@
 from player.states.basic_state import BasicState
-import pygame
 
 
 class PlayerRunState(BasicState):
     def _enter(self):
+        super()._enter()
         self._context.change_animation('run')
+        self._context.jumps = 1
 
-    def move(self, dt, direction: pygame.Vector2):
-        self._context.change_x_by(direction.x * self._context.velocity * dt)
-        self._context.change_y_by(direction.y * self._context.velocity * dt)
-        self._context.sprite.update(self._context.hitbox.center)
+    def get_direction(self, events):
+        self._player_direction.x = (events['d'] - events['a']) * self._context.speed
 
-    def update(self, dt):
+    def update(self, dt, events):
         super().update(dt)
-        self.move(dt, self._context.direction)
+        self.get_direction(events)
 
     def next_state(self, events):
-        if not self._context.direction.magnitude():
+        if self._player_direction.magnitude() == 0:
             return 'idle'
+        if not self._context.collisions['bottom']:
+            return 'fall'
+        if events['space']:
+            if self._context.jumps:
+                return 'jump'

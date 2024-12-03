@@ -18,7 +18,7 @@ class GameplayLoop(Loop):
         self.reset_events()
 
     def reset_events(self):
-        for button in ['w', 'a', 's', 'd', 'e', 'mouse1', 'mouse3', 'shift', 'q']:
+        for button in ['w', 'a', 's', 'd', 'e', 'mouse1', 'mouse3', 'shift', 'q', 'space']:
             self._events[button] = False
 
     def update(self, dt):
@@ -47,6 +47,8 @@ class GameplayLoop(Loop):
                     self._events['e'] = True
                 if event.key == pygame.K_q:
                     self._events['q'] = True
+                if event.key == pygame.K_SPACE:
+                    self._events['space'] = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     self._events['w'] = False
@@ -60,6 +62,8 @@ class GameplayLoop(Loop):
                     self._events['shift'] = False
                 if event.key == pygame.K_q:
                     self._events['q'] = False
+                if event.key == pygame.K_SPACE:
+                    self._events['space'] = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self._events['mouse1'] = True

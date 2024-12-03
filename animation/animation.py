@@ -21,7 +21,7 @@ class Animation:
                 self._done = True
 
     def img(self):
-        return self._images[int(self._frame % (self.length() - 1))]
+        return self._images[int(self._frame % (self.length()))]
 
 
 class SetAnimation:
