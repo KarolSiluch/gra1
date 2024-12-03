@@ -29,6 +29,25 @@ class BasicState:
     def player_hitbox(self) -> pygame.FRect:
         return self._context.hitbox
 
+    def external_force(self) -> pygame.Vector2:
+        force = pygame.Vector2()
+        magnets: TileMap = group_picker.get_group(GroupType.Magnets)
+        for magnet in magnets.grid_tiles_around(self._context.hitbox.center, 10):
+            force += magnet.get_force(self._context.hitbox.center, self._context.charge)
+        force = pygame.Vector2() if force.magnitude() < 5 else force
+        return force
+
+    def total_force(self):
+        force = self.external_force() + pygame.Vector2(0, self._gravity)
+        strength = min(force.magnitude(), 5000)
+        force.scale_to_length(strength)
+        return force
+
+    def apply_force(self, dt):
+        force = self.total_force()
+        self.player_direction.x = min(force.x * dt + self.player_direction.x, 600)
+        self.player_direction.y = min(force.y * dt + self.player_direction.y, 600)
+
     def move(self, dt, direction: pygame.Vector2):
         tilemap: TileMap = group_picker.get_group(GroupType.Collidable)
 
@@ -48,7 +67,7 @@ class BasicState:
                 self._context.hitbox.bottom = tile.hitbox.top
                 self._context.set_collision('bottom')
             elif direction.y < 0:
-                self._context.hitbox.top = tile.hitbox.top
+                self._context.hitbox.top = tile.hitbox.bottom
                 self._context.set_collision('top')
             self._player_direction.y = 0
 
@@ -63,7 +82,7 @@ class BasicState:
         self._context.current_animation.update(dt)
 
     def update(self, dt, *args):
-        self._player_direction.y = min(self._gravity * dt + self._player_direction.y, 600)
+        self.apply_force(dt)
         self.move(dt, self.player_direction)
         self.animate(dt)
 

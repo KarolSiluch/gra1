@@ -37,5 +37,7 @@ class Gameplay:
                     'jump': Animation(support.support.import_cut_graphics((1, 1), f'{player_path}jump.png')),
                 }
             },
-            'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png')
+            'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png'),
+            'magnet+': import_cut_graphics((5, 1), 'assets/tiles/magnet+.png'),
+            'magnet-': import_cut_graphics((5, 1), 'assets/tiles/magnet-.png')
         }

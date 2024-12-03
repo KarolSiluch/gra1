@@ -5,6 +5,7 @@ from map.tilemaps.visible_sprites import YSortCamera
 from map.tiles.tile import Tile
 from group_picker.settings import GroupType
 from group_picker.group_picker import group_picker
+from map.tiles.magnet import Magnet
 
 
 class MapManager:
@@ -16,6 +17,7 @@ class MapManager:
         self._sprite_groups = {
             GroupType.Visible: YSortCamera(tile_size),
             GroupType.Collidable: TileMap(tile_size),
+            GroupType.Magnets: TileMap(tile_size)
         }
         self.enter()
 
@@ -56,6 +58,12 @@ class MapManager:
             groups = group_picker.get_groups(GroupType.Collidable)
             image = pygame.Surface((self._tile_size, self._tile_size))
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)
+
+        elif 'magnet' in type:
+            charge = variant + 1 if '+' in type else -variant - 1
+            groups = group_picker.get_groups(GroupType.Visible, GroupType.Collidable, GroupType.Magnets)
+            image = self._game.assets[type][variant]
+            Magnet(groups, type, image, charge=charge, offgrid_tile=offgrid_tile, z=layer, **pos)
 
         elif type == 'player':
             self._player_start_position = list(pos.values())[0]

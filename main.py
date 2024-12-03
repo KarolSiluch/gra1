@@ -30,7 +30,7 @@ class Main:
 
     def main_loop(self):
         while self._running:
-            self._clock.tick(500)
+            self._clock.tick(300)
             dt = time() - self._previous_time
             self._previous_time = time()
             self._current_loop.get_events()

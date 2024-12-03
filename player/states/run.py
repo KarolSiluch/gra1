@@ -5,6 +5,7 @@ class PlayerRunState(BasicState):
     def _enter(self):
         super()._enter()
         self._context.change_animation('run')
+        self._player_direction *= 0
         self._context.jumps = 1
 
     def get_direction(self, events):

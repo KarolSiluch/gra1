@@ -9,7 +9,7 @@ class StateMachine:
     def __init__(self, context) -> None:
         self._state = 'idle'
         self._states = {
-            'idle': PlayerIdleState(context, {'run', 'jump'}),
+            'idle': PlayerIdleState(context, {'run', 'jump', 'fall'}),
             'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
             'fall': PlayerFallState(context, {'idle', 'run', 'jump'}),
             'jump': PlayerJumpState(context, {'fall'}, gravity=1050)
