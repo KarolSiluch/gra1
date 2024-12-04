@@ -42,7 +42,7 @@ class Tile(Foundation):
 
     def __init__(self, groups, type: str, image: pygame.Surface, sort_y_offset: int = 0,
                  offgrid_tile: bool = False, z=5, special_flags=0, **pos: tuple[int]) -> None:
-        # __init__ zajmował dużo miejsca, to zrobiłem linie odstępu, a komentaż jest po to, żeby flake8 się nie czepiał
+
         self._sprite = self.Sprite(image, sort_y_offset, **pos)
         self.hitbox: pygame.FRect = image.get_frect(**pos)
         self._z = z

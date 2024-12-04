@@ -1,11 +1,13 @@
 import pygame
 import json
 from map.tilemaps.tilemap import TileMap
-from map.tilemaps.visible_sprites import YSortCamera
+from map.tilemaps.visible_sprites import YSortCamera, BackgroundCamera
 from map.tiles.tile import Tile
+from map.tiles.background_tile import BackgroundTile
 from group_picker.settings import GroupType
 from group_picker.group_picker import group_picker
 from map.tiles.magnet import Magnet
+from random import randint, choice, random
 
 
 class MapManager:
@@ -17,9 +19,11 @@ class MapManager:
         self._sprite_groups = {
             GroupType.Visible: YSortCamera(tile_size),
             GroupType.Collidable: TileMap(tile_size),
-            GroupType.Magnets: TileMap(tile_size)
+            GroupType.Magnets: TileMap(tile_size),
+            GroupType.Background: BackgroundCamera(tile_size)
         }
         self.enter()
+        self.create_a_background()
 
         self._player_start_position = None
 
@@ -31,6 +35,25 @@ class MapManager:
     @property
     def player_start_position(self):
         return self._player_start_position
+
+    def create_a_background(self):
+        screen_h = pygame.display.Info().current_h
+        group = group_picker.get_group(GroupType.Background)
+        for _ in range(10):
+            assets = self._game.assets['background_buildings']
+            image = choice(assets)
+            z = randint(20, 70)
+            x = random() * 99999
+            pos = (x, screen_h - randint(-10, 10))
+            BackgroundTile([group], 'background_buildings', image, offgrid_tile=True, z=z, midbottom=pos)
+        for _ in range(8):
+            assets = self._game.assets['clouds']
+            image: pygame.Surface = choice(assets)
+            z = randint(10, 60)
+            y = randint(-50, int(screen_h * 0.3))
+            x = random() * 99999
+            wind = randint(3, 15)
+            BackgroundTile([group], 'background_buildings', image, wind, offgrid_tile=True, z=z, topleft=(x, y))
 
     def enter(self):
         group_picker.init(self._sprite_groups)
@@ -49,7 +72,7 @@ class MapManager:
         layer = tile_data['z']
         pos: dict = tile_data['pos']
 
-        if type in {'lab_tiles'}:
+        if type in {'lab_tiles', 'container1', 'container2'}:
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Collidable)
             image = self._game.assets[type][variant]
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)
@@ -74,6 +97,7 @@ class MapManager:
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)
 
     def update(self, dt):
+        self._sprite_groups[GroupType.Background].update(dt)
         self.get_camera_offset(dt)
 
     def get_camera_offset(self, dt):
@@ -85,4 +109,5 @@ class MapManager:
         self._camera_offset.y += offset_y * miltiplier
 
     def render(self, display: pygame.Surface):
+        self._sprite_groups[GroupType.Background].render(display, self._camera_offset)
         self._sprite_groups[GroupType.Visible].render(display, self._camera_offset)

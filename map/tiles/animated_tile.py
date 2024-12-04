@@ -8,7 +8,8 @@ class AnimatedTile(Tile):
 
         self._animations = animations
         self._current_animation: Animation = self._animations[first_state].copy()
-        super().__init__(groups, type, self._current_animation.img(), render_y_offset, offgrid_tile, z=z, **pos)
+        super().__init__(groups, type, self._current_animation.img(),
+                         render_y_offset, offgrid_tile, z=z, **pos)
 
     @property
     def current_animation(self):

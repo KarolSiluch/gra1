@@ -1,7 +1,7 @@
 from map.tiles.tile import Tile
 import pygame
 
-CONST = 60000
+CONST = 80000
 
 
 class Magnet(Tile):

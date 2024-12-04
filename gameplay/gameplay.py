@@ -42,5 +42,9 @@ class Gameplay:
             },
             'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png'),
             'magnet+': import_cut_graphics((5, 1), 'assets/tiles/magnet+.png'),
-            'magnet-': import_cut_graphics((5, 1), 'assets/tiles/magnet-.png')
+            'magnet-': import_cut_graphics((5, 1), 'assets/tiles/magnet-.png'),
+            'background_buildings': import_cut_graphics((6, 1), 'assets/background_buildings.png'),
+            'clouds': import_cut_graphics((2, 1), 'assets/clouds.png'),
+            'container1': import_cut_graphics((5, 3), 'assets/tiles/container1.png'),
+            'container2': import_cut_graphics((5, 3), 'assets/tiles/container2.png')
         }
