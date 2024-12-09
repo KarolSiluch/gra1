@@ -3,6 +3,7 @@ from player.states.run import PlayerRunState
 from player.states.idle import PlayerIdleState
 from player.states.fall import PlayerFallState
 from player.states.jump import PlayerJumpState
+from player.states.slide import PlayerSlideState
 
 
 class StateMachine:
@@ -11,8 +12,9 @@ class StateMachine:
         self._states = {
             'idle': PlayerIdleState(context, {'run', 'jump', 'fall'}),
             'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
-            'fall': PlayerFallState(context, {'idle', 'run', 'jump'}, gravity=1050),
-            'jump': PlayerJumpState(context, {'fall'}, gravity=1050)
+            'fall': PlayerFallState(context, {'idle', 'run', 'jump', 'slide'}, gravity=1050),
+            'jump': PlayerJumpState(context, {'fall'}, gravity=1050),
+            'slide': PlayerSlideState(context, {'fall', 'idle', 'jump'}),
         }
         self._current_state: BasicState = self._states[self._state]
 
@@ -40,4 +42,3 @@ class StateMachine:
         for state in self._states.values():
             state.cooldown.timer()
         self.change_state(self._current_state.next_state(events))
-        # if state := self.current_state.next_state(): self.change_state(state)]

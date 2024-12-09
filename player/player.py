@@ -20,8 +20,10 @@ class Player(AnimatedTile):
         super().__init__(groups, 'player', image, self._state_machine.state, offgrid_tile=True, z=6, **pos)
         self.reset_collisions()
         self.hitbox.inflate_ip(-40, 0)
+        self.slide_hitbox = self.hitbox.copy().inflate(2, 0)
 
         self.direction = pygame.Vector2(0, 0)
+        self.prevoius_x_direction = 0
         self._speed = 200
 
         self.jumps = 1
@@ -66,4 +68,5 @@ class Player(AnimatedTile):
         self.reset_collisions()
         self.self_charge(dt, 2 * events['shift'] - 1)
         self._state_machine.update(dt, events)
+        self.slide_hitbox.center = self.hitbox.center
         self._sprite.update(self.hitbox.center)

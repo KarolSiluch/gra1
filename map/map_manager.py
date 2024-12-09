@@ -105,7 +105,7 @@ class MapManager:
         offset_x = self._game.player.hitbox.centerx - display.current_w // 2 - self._camera_offset.x
         miltiplier = dt * 4
         self._camera_offset.x += offset_x * miltiplier
-        offset_y = self._game.player.hitbox.centery - display.current_h // 2 - self._camera_offset.y - 30
+        offset_y = self._game.player.hitbox.centery - display.current_h // 2 - self._camera_offset.y - 40
         self._camera_offset.y += offset_y * miltiplier
 
     def render(self, display: pygame.Surface):

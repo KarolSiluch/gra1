@@ -85,5 +85,7 @@ class BasicState:
         self.apply_force(dt)
         self.move(dt, self.player_direction)
         self.animate(dt)
+        if direction := self.player_direction.x:
+            self._context.prevoius_x_direction = direction
 
     def next_state(self, events): ...

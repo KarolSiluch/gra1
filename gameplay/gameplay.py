@@ -38,6 +38,7 @@ class Gameplay:
                     'run': Animation(support.support.import_cut_graphics((6, 1), f'{player_path}run.png'), 10),
                     'fall': Animation(support.support.import_cut_graphics((1, 1), f'{player_path}fall.png')),
                     'jump': Animation(support.support.import_cut_graphics((1, 1), f'{player_path}jump.png')),
+                    'slide': Animation(support.support.import_cut_graphics((3, 1), f'{player_path}slide.png'), 10),
                 }
             },
             'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png'),
