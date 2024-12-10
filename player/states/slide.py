@@ -11,6 +11,7 @@ class PlayerSlideState(BasicState):
         super()._enter()
         self._context.change_animation('slide')
         self._context.jumps = 1
+        self.player_direction.y = 0
 
     def apply_force(self, dt):
         force = self.total_force()

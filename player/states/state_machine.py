@@ -13,7 +13,7 @@ class StateMachine:
             'idle': PlayerIdleState(context, {'run', 'jump', 'fall'}),
             'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
             'fall': PlayerFallState(context, {'idle', 'run', 'jump', 'slide'}, gravity=1050),
-            'jump': PlayerJumpState(context, {'fall'}, gravity=1050),
+            'jump': PlayerJumpState(context, {'fall', 'slide'}, gravity=1050),
             'slide': PlayerSlideState(context, {'fall', 'idle', 'jump'}),
         }
         self._current_state: BasicState = self._states[self._state]
@@ -29,6 +29,7 @@ class StateMachine:
             return
         if not self._states[state].cooldown():
             return
+        # print(state)
         self._current_state._exsit()
         self._current_state = self._states[state]
         self._current_state._enter()
