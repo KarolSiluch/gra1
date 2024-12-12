@@ -6,6 +6,7 @@ class GroupType(Enum):
     Collidable = 1
     Magnets = 2
     Background = 3
+    Particles = 4
 
 
 class InvalidGroupTypeError(Exception):

@@ -17,6 +17,7 @@ class Tile(Foundation):
 
         def new_image(self, image):
             self._raw_image = image
+            self._final_image = image
 
         def transform(self, angle=0, flip=(False, False), scale=1):
             transformed_image = pygame.transform.flip(self._raw_image, *flip)

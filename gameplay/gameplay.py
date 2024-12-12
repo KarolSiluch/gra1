@@ -2,7 +2,6 @@ import pygame
 from map.map_manager import MapManager
 from player.player import Player
 from animation.animation import Animation
-import support.support
 from group_picker.group_picker import group_picker
 from group_picker.settings import GroupType
 from support.support import import_cut_graphics
@@ -24,6 +23,7 @@ class Gameplay:
     def update(self, dt, events):
         self._map_manager.update(dt)
         self.player.update(dt, events)
+        self.player.generate_particles(dt, self._assets['particles'])
 
     def render(self, display: pygame.Surface):
         self._map_manager.render(display)
@@ -34,12 +34,15 @@ class Gameplay:
         self._assets = {
             'player': {
                 'animations': {
-                    'idle': Animation(support.support.import_cut_graphics((4, 1), f'{player_path}idle.png'), 7),
-                    'run': Animation(support.support.import_cut_graphics((6, 1), f'{player_path}run.png'), 10),
-                    'fall': Animation(support.support.import_cut_graphics((1, 1), f'{player_path}fall.png')),
-                    'jump': Animation(support.support.import_cut_graphics((1, 1), f'{player_path}jump.png')),
-                    'slide': Animation(support.support.import_cut_graphics((3, 1), f'{player_path}slide.png'), 10),
+                    'idle': Animation(import_cut_graphics((4, 1), f'{player_path}idle.png'), 7),
+                    'run': Animation(import_cut_graphics((6, 1), f'{player_path}run.png'), 10),
+                    'fall': Animation(import_cut_graphics((1, 1), f'{player_path}fall.png')),
+                    'jump': Animation(import_cut_graphics((1, 1), f'{player_path}jump.png')),
+                    'slide': Animation(import_cut_graphics((3, 1), f'{player_path}slide.png'), 10),
                 }
+            },
+            'particles': {
+                'spark': Animation(import_cut_graphics((6, 1), 'assets/particles/spark.png'), 8, False),
             },
             'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png'),
             'magnet+': import_cut_graphics((5, 1), 'assets/tiles/magnet+.png'),

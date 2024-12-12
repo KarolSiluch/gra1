@@ -6,6 +6,14 @@ class Animation:
         self._done = False
         self._frame = 0
 
+    @property
+    def frame(self):
+        return self._frame
+
+    @property
+    def done(self):
+        return self._done
+
     def copy(self):
         return Animation(self._images, self._animation_speed, self._loop)
 

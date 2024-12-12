@@ -20,7 +20,8 @@ class MapManager:
             GroupType.Visible: YSortCamera(tile_size),
             GroupType.Collidable: TileMap(tile_size),
             GroupType.Magnets: TileMap(tile_size),
-            GroupType.Background: BackgroundCamera(tile_size)
+            GroupType.Background: BackgroundCamera(tile_size),
+            GroupType.Particles: TileMap(tile_size),
         }
         self.enter()
         self.create_a_background()
@@ -98,6 +99,7 @@ class MapManager:
 
     def update(self, dt):
         self._sprite_groups[GroupType.Background].update(dt)
+        self._sprite_groups[GroupType.Particles].update(dt, self._game.player.hitbox.center)
         self.get_camera_offset(dt)
 
     def get_camera_offset(self, dt):
