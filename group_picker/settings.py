@@ -7,6 +7,8 @@ class GroupType(Enum):
     Magnets = 2
     Background = 3
     Particles = 4
+    Enemies = 5
+    Attacks = 6
 
 
 class InvalidGroupTypeError(Exception):

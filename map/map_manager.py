@@ -8,6 +8,7 @@ from group_picker.settings import GroupType
 from group_picker.group_picker import group_picker
 from map.tiles.magnet import Magnet
 from random import randint, choice, random
+from enemy.enemy import Enemy
 
 
 class MapManager:
@@ -22,6 +23,8 @@ class MapManager:
             GroupType.Magnets: TileMap(tile_size),
             GroupType.Background: BackgroundCamera(tile_size),
             GroupType.Particles: TileMap(tile_size),
+            GroupType.Enemies: TileMap(tile_size),
+            GroupType.Attacks: TileMap(tile_size),
         }
         self.enter()
         self.create_a_background()
@@ -89,8 +92,14 @@ class MapManager:
             image = self._game.assets[type][variant]
             Magnet(groups, type, image, charge=charge, offgrid_tile=offgrid_tile, z=layer, **pos)
 
+        elif type in {'enemy'}:
+            groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
+            Enemy(groups, self._game.assets['enemy'], **pos)
+
         elif type == 'player':
             self._player_start_position = list(pos.values())[0]
+
+            groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
 
         else:
             groups = group_picker.get_groups(GroupType.Visible)
@@ -98,8 +107,11 @@ class MapManager:
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)
 
     def update(self, dt):
+        p_center = self._game.player.hitbox.center
         self._sprite_groups[GroupType.Background].update(dt)
-        self._sprite_groups[GroupType.Particles].update(dt, self._game.player.hitbox.center)
+        self._sprite_groups[GroupType.Particles].update(dt, p_center)
+        self._sprite_groups[GroupType.Enemies].update(dt, p_center, p_center)
+        self._sprite_groups[GroupType.Attacks].update(dt, p_center)
         self.get_camera_offset(dt)
 
     def get_camera_offset(self, dt):

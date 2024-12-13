@@ -28,9 +28,9 @@ class Tile(Foundation):
             self._final_image = transformed_image
             self._angle = angle
 
-        def update(self, hitbox_center):
-            self._rect.center = hitbox_center
-            self._rect_center = hitbox_center
+        def update(self, hitbox_mid_bottom):
+            self._rect.midbottom = hitbox_mid_bottom
+            self._rect_center = self._rect.center
 
         @property
         def sort_y_offset(self): return self._sort_y_offset

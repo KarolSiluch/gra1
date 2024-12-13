@@ -13,6 +13,8 @@ class PlayerIdleState(BasicState):
         return pygame.Vector2(force.x // 100, force.y)
 
     def next_state(self, events):
+        if events['mouse1']:
+            return 'attack'
         if events['d'] - events['a']:
             return 'run'
         if not self._context.collisions['bottom']:

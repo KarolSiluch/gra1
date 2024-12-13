@@ -4,17 +4,19 @@ from player.states.idle import PlayerIdleState
 from player.states.fall import PlayerFallState
 from player.states.jump import PlayerJumpState
 from player.states.slide import PlayerSlideState
+from player.states.attack import PlayerAttackState
 
 
 class StateMachine:
     def __init__(self, context) -> None:
         self._state = 'idle'
         self._states = {
-            'idle': PlayerIdleState(context, {'run', 'jump', 'fall'}),
-            'run': PlayerRunState(context, {'idle', 'fall', 'jump'}),
-            'fall': PlayerFallState(context, {'idle', 'run', 'jump', 'slide'}, gravity=1050),
+            'idle': PlayerIdleState(context, {'run', 'jump', 'fall', 'attack'}),
+            'run': PlayerRunState(context, {'idle', 'fall', 'jump', 'attack'}),
+            'fall': PlayerFallState(context, {'idle', 'run', 'slide'}, gravity=1050),
             'jump': PlayerJumpState(context, {'fall', 'slide'}, gravity=1050),
             'slide': PlayerSlideState(context, {'fall', 'idle', 'jump'}),
+            'attack': PlayerAttackState(context, {'idle', 'fall', 'run', 'jump'}, cooldown=100),
         }
         self._current_state: BasicState = self._states[self._state]
 
@@ -29,7 +31,6 @@ class StateMachine:
             return
         if not self._states[state].cooldown():
             return
-        # print(state)
         self._current_state._exsit()
         self._current_state = self._states[state]
         self._current_state._enter()

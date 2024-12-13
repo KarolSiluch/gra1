@@ -39,6 +39,13 @@ class Gameplay:
                     'fall': Animation(import_cut_graphics((1, 1), f'{player_path}fall.png')),
                     'jump': Animation(import_cut_graphics((1, 1), f'{player_path}jump.png')),
                     'slide': Animation(import_cut_graphics((3, 1), f'{player_path}slide.png'), 10),
+                    'attack': Animation(import_cut_graphics((3, 1), f'{player_path}attack.png'), 10, loop=False),
+                }
+            },
+            'enemy': {
+                'animations': {
+                    'idle': Animation(import_cut_graphics((4, 1), 'assets/enemy/idle.png'), 7),
+                    'walk': Animation(import_cut_graphics((6, 1), 'assets/enemy/walk.png'), 10),
                 }
             },
             'particles': {

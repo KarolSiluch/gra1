@@ -23,3 +23,5 @@ class PlayerRunState(BasicState):
         if events['space']:
             if self._context.jumps:
                 return 'jump'
+        if events['mouse1']:
+            return 'attack'

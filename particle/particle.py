@@ -25,7 +25,7 @@ class Particle(Tile):
         self._velocity.y = sorted([-200, self._velocity.y + self._acceleration.y, 200])[1]
         self.hitbox.x += self._velocity.x * dt
         self.hitbox.y += self._velocity.y * dt
-        self.sprite.update(self.hitbox.center)
+        self.sprite.update(self.hitbox.midbottom)
 
     def update(self, dt):
         self._animation.update(dt)

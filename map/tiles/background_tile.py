@@ -9,4 +9,4 @@ class BackgroundTile(Tile):
 
     def update(self, dt):
         self.hitbox.x += self._direction_x * dt * self._z / 100
-        self._sprite.update(self.hitbox.center)
+        self._sprite.update(self.hitbox.midbottom)
