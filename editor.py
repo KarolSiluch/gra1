@@ -50,7 +50,7 @@ class Editor:
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
-        if type in {'player', 'enemy'}:
+        if type in {'player', 'enemy', 'kakine'}:
             render_rect = current_tile.get_rect(center=(mouse_x, mouse_y))
             self._screen.blit(current_tile, render_rect)
 
@@ -83,7 +83,7 @@ class Editor:
         image = self._assets[type][self._tile_variant]
 
         layer = 5
-        if type in {'player', 'enemy'}:
+        if type in {'player', 'enemy', 'kakine'}:
             if not self._off_grid:
                 return
             pos = {'center': ingame_mpos}
@@ -182,6 +182,7 @@ class Editor:
         self._assets = {
             'player': [load_image('assets/player/player.png')],
             'enemy': [load_image('assets/enemy/enemy.png')],
+            'kakine': [load_image('assets/kakine/kakine.png')],
             'lab_tiles': import_cut_graphics((3, 3), 'assets/tiles/lab_tiles.png'),
             'magnet+': import_cut_graphics((5, 1), 'assets/tiles/magnet+.png'),
             'magnet-': import_cut_graphics((5, 1), 'assets/tiles/magnet-.png'),

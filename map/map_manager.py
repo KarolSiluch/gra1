@@ -9,6 +9,8 @@ from group_picker.group_picker import group_picker
 from map.tiles.magnet import Magnet
 from random import randint, choice, random
 from enemy.enemy import Enemy
+from entity.entity import Entity
+from npc.states.state_machine import StateMachine as KakineAI
 
 
 class MapManager:
@@ -96,9 +98,12 @@ class MapManager:
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
             Enemy(groups, self._game.assets['enemy'], **pos)
 
+        elif type in {'kakine'}:
+            groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
+            Entity(groups, 'kakine', self._game.assets['kakine'], KakineAI, **pos)
+
         elif type == 'player':
             self._player_start_position = list(pos.values())[0]
-
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
 
         else:

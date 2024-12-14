@@ -14,5 +14,7 @@ class EnemyIdleState(BasicState):
         # wy = player_center[1] - self.enemy_hitbox.centery
         # if pygame.Vector2(wx, wy).magnitude() > 40:
         #     return 'walk'
+        if not self._context.collisions['bottom']:
+            return
         if random() * 600 <= 340 * dt:
             return 'walk'

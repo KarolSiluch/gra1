@@ -6,7 +6,7 @@ from map.tilemaps.tilemap import TileMap
 
 
 class Enemy(Entity):
-    def __init__(self, groups, assets, **pos: tuple[int]) -> None:
+    def __init__(self, groups, assets, **pos) -> None:
         super().__init__(groups, 'enemy', assets, StateMachine, **pos)
         self._speed = 40
         self.prevoius_x_direction = self._speed

@@ -32,11 +32,12 @@ class Main:
         while self._running:
             self._clock.tick(300)
             dt = time() - self._previous_time
+            dt = min(dt, 0.1)
             self._previous_time = time()
             self._current_loop.get_events()
             self._current_loop.update(dt)
             self._current_loop.render(self._screen)
-            Render_Text(self._screen, str(int(self._clock.get_fps())), '#ffbb00', (self._screen.width - 40, 3))
+            # Render_Text(self._screen, str(int(self._clock.get_fps())), '#ffbb00', (self._screen.width - 40, 3))
             pygame.display.update()
 
 

@@ -48,6 +48,11 @@ class Gameplay:
                     'walk': Animation(import_cut_graphics((6, 1), 'assets/enemy/walk.png'), 10),
                 }
             },
+            'kakine': {
+                'animations': {
+                    'idle': Animation(import_cut_graphics((4, 1), 'assets/kakine/idle.png'), 7),
+                }
+            },
             'particles': {
                 'spark': Animation(import_cut_graphics((6, 1), 'assets/particles/spark.png'), 8, False),
             },
