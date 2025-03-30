@@ -8,5 +8,6 @@ skok: spacja
 slide po ścianie: naładowanie powyżej połowy (niebieski pasek w lewym dolnym rogu), będąc obok ściany
 lewy przycisk myszy: atak
 
+W zakładce releases znajduje się plik exe z grą.
 Życzę miłej zabawy.
 
