@@ -33,23 +33,13 @@ class BasicState:
         tilemap: TileMap = group_picker.get_group(GroupType.Collidable)
 
         self._context.hitbox.y += direction.y * dt
-        for tile in tilemap.get_collisions(self._context):
-            if direction.y > 0:
-                self._context.hitbox.bottom = tile.hitbox.top
-                self._context.set_collision('bottom')
-            elif direction.y < 0:
-                self._context.hitbox.top = tile.hitbox.bottom
-                self._context.set_collision('top')
+        for tile in tilemap.get_vertical_collisions(self._context.hitbox, 2):
+            tile.vertical_collision(self._context, direction)
             self._enemy_direction.y = 0
 
         self._context.hitbox.x += direction.x * dt
-        for tile in tilemap.get_collisions(self._context):
-            if direction.x > 0:
-                self._context.hitbox.right = tile.hitbox.left
-                self._context.set_collision('right')
-            elif direction.x < 0:
-                self._context.hitbox.left = tile.hitbox.right
-                self._context.set_collision('left')
+        for tile in tilemap.get_horizontal_collisions(self._context.hitbox, 2):
+            tile.horizontal_collision(self._context, direction)
             self._enemy_direction.x = 0
 
     def _enter(self, *args):

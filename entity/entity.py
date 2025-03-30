@@ -21,6 +21,7 @@ class Entity(AnimatedTile):
         self.reset_collisions()
         self.hitbox.inflate_ip(-40, 0)
         self.slide_hitbox = self.hitbox.copy().inflate(2, 0)
+        self.floor_collisions = set()
 
         self.direction = pygame.Vector2(0, 0)
         self._speed = 200

@@ -188,6 +188,8 @@ class Editor:
             'magnet-': import_cut_graphics((5, 1), 'assets/tiles/magnet-.png'),
             'container1': import_cut_graphics((5, 3), 'assets/tiles/container1.png'),
             'container2': import_cut_graphics((5, 3), 'assets/tiles/container2.png'),
+            'gravel': import_cut_graphics((7, 1), 'assets/tiles/gravel.png'),
+            'slope': import_cut_graphics((1, 1), 'assets/slopes/stone.png'),
         }
 
 

@@ -50,6 +50,30 @@ class Tile(Foundation):
         self._special_flags = special_flags
         super().__init__(groups, type, offgrid_tile)
 
+    # x
+    def get_horizontal_collision(self, rect: pygame.FRect, collisions: set):
+        return self.hitbox.colliderect(rect)
+
+    # y
+    def get_vertical_collision(self, rect: pygame.FRect, collisions: set):
+        return self.hitbox.colliderect(rect)
+
+    def horizontal_collision(self, entity, direction: pygame.Vector2):
+        if direction.x > 0:
+            entity.hitbox.right = self.hitbox.left
+            entity.set_collision('right')
+        elif direction.x < 0:
+            entity.hitbox.left = self.hitbox.right
+            entity.set_collision('left')
+
+    def vertical_collision(self, entity, direction: pygame.Vector2):
+        if direction.y > 0:
+            entity.hitbox.bottom = self.hitbox.top
+            entity.set_collision('bottom')
+        elif direction.y < 0:
+            entity.hitbox.top = self.hitbox.bottom
+            entity.set_collision('top')
+
     @property
     def sprite(self) -> Sprite: return self._sprite
 

@@ -62,5 +62,7 @@ class Gameplay:
             'background_buildings': import_cut_graphics((6, 1), 'assets/background_buildings.png'),
             'clouds': import_cut_graphics((2, 1), 'assets/clouds.png'),
             'container1': import_cut_graphics((5, 3), 'assets/tiles/container1.png'),
-            'container2': import_cut_graphics((5, 3), 'assets/tiles/container2.png')
+            'container2': import_cut_graphics((5, 3), 'assets/tiles/container2.png'),
+            'gravel': import_cut_graphics((7, 1), 'assets/tiles/gravel.png'),
+            'slope': import_cut_graphics((1, 1), 'assets/slopes/stone.png'),
         }

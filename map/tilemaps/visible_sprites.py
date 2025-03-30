@@ -4,7 +4,7 @@ from map.tilemaps.tilemap import TileMap
 
 class YSortCamera(TileMap):
     def render(self, display: pygame.Surface, camera_offset: pygame.Vector2):
-        for tile in sorted(self.all_tiles_around(camera_offset, 33), key=lambda tile: (tile.z, tile.sprite.rect.bottom +
+        for tile in sorted(self.all_tiles_around(camera_offset, 35), key=lambda tile: (tile.z, tile.sprite.rect.bottom +
                                                                                        tile.sprite.sort_y_offset +
                                                                                        tile.sprite.render_offset.y)):
             if not tile.sprite.show:

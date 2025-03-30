@@ -11,6 +11,7 @@ from random import randint, choice, random
 from enemy.enemy import Enemy
 from entity.entity import Entity
 from npc.states.state_machine import StateMachine as KakineAI
+from map.tiles.slope import Slope
 
 
 class MapManager:
@@ -78,7 +79,7 @@ class MapManager:
         layer = tile_data['z']
         pos: dict = tile_data['pos']
 
-        if type in {'lab_tiles', 'container1', 'container2'}:
+        if type in {'lab_tiles', 'container1', 'container2', 'gravel'}:
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Collidable)
             image = self._game.assets[type][variant]
             Tile(groups, type, image, offgrid_tile=offgrid_tile, z=layer, **pos)
@@ -101,6 +102,10 @@ class MapManager:
         elif type in {'kakine'}:
             groups = group_picker.get_groups(GroupType.Visible, GroupType.Enemies)
             Entity(groups, 'kakine', self._game.assets['kakine'], KakineAI, **pos)
+
+        elif type in {'slope'}:
+            groups = group_picker.get_groups(GroupType.Visible, GroupType.Collidable)
+            Slope(groups, 'slope', self._game.assets['slope'][0], **pos)
 
         elif type == 'player':
             self._player_start_position = list(pos.values())[0]

@@ -13,7 +13,6 @@ class EnemyHitState(BasicState):
     def accelerate(self, dt):
         acceleration = copysign(1, -self.enemy_direction.x) * 1000
         self._enemy_direction.x += acceleration * dt
-        print(self._enemy_direction.x)
 
     def update(self, dt, player_center):
         self.accelerate(dt)

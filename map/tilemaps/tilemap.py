@@ -95,3 +95,27 @@ class TileMap:
             self._tile_map[place].remove(sprite)
             if len(self._tile_map[place]) == 0:
                 del self._tile_map[place]
+
+    def get_vertical_collisions(self, rect: pygame.Rect, radius: int = 1):
+        collisions: list[Tile] = []
+
+        for tile in self.all_tiles_around(rect.center, radius):
+            if rect is tile.hitbox:
+                continue
+            if not tile.get_vertical_collision(rect, collisions):
+                continue
+            collisions.append(tile)
+
+        return collisions
+
+    def get_horizontal_collisions(self, rect: pygame.Rect, radius: int = 1):
+        collisions: list[Tile] = []
+
+        for tile in self.all_tiles_around(rect.center, radius):
+            if rect is tile.hitbox:
+                continue
+            if not tile.get_horizontal_collision(rect, collisions):
+                continue
+            collisions.append(tile)
+
+        return collisions
